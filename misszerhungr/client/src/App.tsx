@@ -5,15 +5,20 @@ import HeroSection from './components/HeroSection';
 import MissionSection from './components/MissionSection';
 import AchievementsSection from './components/AchievementsSection';
 import ImageGallery from './components/ImageGallery';
-import NavigationButtons from './components/NavigationButtons';
 import LoadingAnimation from './components/LoadingAnimation';
 import Footer from './components/Footer';
 import PlaceholderModal from './components/PlaceholderModal';
+import TuscaloosaMapInsights from './components/TuscaloosaMapInsights';
+import AuthPage from './components/AuthPage';
+import VolunteerXpress from './components/VolunteerXpress';
+import DonationPage from './components/DonationPage';
+import VolunteerApplicationForm from './components/VolunteerApplicationForm';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState('');
+  const [currentPage, setCurrentPage] = useState<'landing' | 'map-insights' | 'auth' | 'volunteer' | 'donation' | 'volunteer-form'>('landing');
 
   // Simulate loading time for splash page effect
   useEffect(() => {
@@ -24,13 +29,48 @@ const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleButtonClick = (content: string) => {
-    setModalContent(content);
-    setShowModal(true);
-  };
+  // Handle navigation events from header
+  useEffect(() => {
+    const handleNavigateToMap = () => {
+      setCurrentPage('map-insights');
+    };
+
+    const handleNavigateToAuth = () => {
+      setCurrentPage('auth');
+    };
+
+    const handleNavigateToVolunteer = () => {
+      setCurrentPage('volunteer');
+    };
+
+    const handleNavigateToDonation = () => {
+      setCurrentPage('donation');
+    };
+
+    window.addEventListener('navigateToMap', handleNavigateToMap);
+    window.addEventListener('navigateToAuth', handleNavigateToAuth);
+    window.addEventListener('navigateToVolunteer', handleNavigateToVolunteer);
+    window.addEventListener('navigateToDonation', handleNavigateToDonation);
+    
+    return () => {
+      window.removeEventListener('navigateToMap', handleNavigateToMap);
+      window.removeEventListener('navigateToAuth', handleNavigateToAuth);
+      window.removeEventListener('navigateToVolunteer', handleNavigateToVolunteer);
+      window.removeEventListener('navigateToDonation', handleNavigateToDonation);
+    };
+  }, []);
+
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const goBackToLanding = () => {
+    setCurrentPage('landing');
+  };
+
+  const navigateToVolunteerForm = () => {
+    setCurrentPage('volunteer-form');
   };
 
   return (
@@ -45,15 +85,28 @@ const App: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="min-h-screen"
           >
-            <Header />
-            <main>
-              <HeroSection />
-              <MissionSection />
-              <AchievementsSection />
-              <ImageGallery />
-              <NavigationButtons onButtonClick={handleButtonClick} />
-            </main>
-            <Footer />
+                {currentPage === 'landing' ? (
+                  <>
+                    <Header />
+                    <main>
+                      <HeroSection />
+                      <MissionSection />
+                      <AchievementsSection onNavigateToVolunteerForm={navigateToVolunteerForm} />
+                      <ImageGallery onNavigateToVolunteerForm={navigateToVolunteerForm} />
+                    </main>
+                    <Footer />
+                  </>
+                ) : currentPage === 'map-insights' ? (
+                  <TuscaloosaMapInsights onBackToLanding={goBackToLanding} />
+                ) : currentPage === 'auth' ? (
+                  <AuthPage onBackToLanding={goBackToLanding} />
+                ) : currentPage === 'volunteer' ? (
+                  <VolunteerXpress onBackToLanding={goBackToLanding} />
+                ) : currentPage === 'volunteer-form' ? (
+                  <VolunteerApplicationForm onBackToLanding={goBackToLanding} />
+                ) : (
+                  <DonationPage onBackToLanding={goBackToLanding} />
+                )}
           </motion.div>
         )}
       </AnimatePresence>

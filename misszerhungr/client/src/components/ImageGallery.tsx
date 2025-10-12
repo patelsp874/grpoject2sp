@@ -1,7 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const ImageGallery: React.FC = () => {
+interface ImageGalleryProps {
+  onNavigateToVolunteerForm?: () => void;
+}
+
+const ImageGallery: React.FC<ImageGalleryProps> = ({ onNavigateToVolunteerForm }) => {
   const galleryImages = [
     {
       src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -36,7 +40,7 @@ const ImageGallery: React.FC = () => {
   ];
 
   return (
-    <section id="gallery" className="section-padding bg-neutral-50">
+    <section id="volunteer-section" className="section-padding bg-neutral-50">
       <div className="container-max">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -106,6 +110,11 @@ const ImageGallery: React.FC = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  if (onNavigateToVolunteerForm) {
+                    onNavigateToVolunteerForm();
+                  }
+                }}
                 className="bg-white text-primary-600 font-semibold py-4 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300"
               >
                 Volunteer Today

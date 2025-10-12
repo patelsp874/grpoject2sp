@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom styles for the Zero Hunger nonprofit prototype */
+/* Custom styles for the Feeding America-inspired food insecurity tracker */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -10,62 +10,137 @@
   
   body {
     font-family: 'Inter', system-ui, sans-serif;
-    background-color: #fafafa;
+    background-color: #f9fafb;
+    color: #111827;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md;
   }
   
   .btn-secondary {
-    @apply bg-secondary-600 hover:bg-secondary-700 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+    @apply bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md;
   }
   
   .btn-outline {
-    @apply border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105;
+    @apply border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300;
   }
   
   .section-padding {
-    @apply py-20 px-4 sm:px-6 lg:px-8;
+    @apply py-16 px-4 sm:px-6 lg:px-8;
   }
   
   .container-max {
     @apply max-w-7xl mx-auto;
   }
   
-  .gradient-bg {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+  /* Feeding America inspired colors */
+  .fa-blue {
+    background-color: #1e40af;
   }
   
-  .gradient-bg-green {
-    background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+  .fa-blue-light {
+    background-color: #3b82f6;
   }
   
-  .text-gradient {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .fa-gray {
+    background-color: #6b7280;
   }
   
-  .text-gradient-green {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .fa-gray-light {
+    background-color: #9ca3af;
   }
   
-  .hero-overlay {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.9) 0%, rgba(217, 119, 6, 0.8) 50%, rgba(180, 83, 9, 0.9) 100%);
+  /* Map specific styles */
+  .map-area {
+    transition: all 0.3s ease;
   }
   
-  .card-shadow {
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  .map-area:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
   }
   
-  .card-shadow-hover {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  .map-area.selected {
+    stroke-width: 3px;
+    filter: brightness(1.2);
+  }
+  
+  /* Data visualization styles */
+  .data-card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow;
+  }
+  
+  .stat-highlight {
+    @apply text-3xl font-bold;
+  }
+  
+  .stat-highlight.red {
+    @apply text-red-600;
+  }
+  
+  .stat-highlight.orange {
+    @apply text-orange-600;
+  }
+  
+  .stat-highlight.blue {
+    @apply text-blue-600;
+  }
+  
+  .stat-highlight.green {
+    @apply text-green-600;
+  }
+  
+  /* Progress bar styles */
+  .progress-bar {
+    @apply w-full bg-gray-200 rounded-full h-2;
+  }
+  
+  .progress-fill {
+    @apply h-2 rounded-full transition-all duration-1000 ease-out;
+  }
+  
+  .progress-fill.red {
+    @apply bg-red-500;
+  }
+  
+  .progress-fill.orange {
+    @apply bg-orange-500;
+  }
+  
+  .progress-fill.yellow {
+    @apply bg-yellow-500;
+  }
+  
+  .progress-fill.green {
+    @apply bg-green-500;
+  }
+  
+  /* Clean card styles */
+  .clean-card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+  }
+  
+  .clean-card-hover {
+    @apply hover:shadow-md hover:border-gray-300 transition-all duration-200;
+  }
+  
+  /* Typography */
+  .heading-primary {
+    @apply text-3xl md:text-4xl font-bold text-gray-900;
+  }
+  
+  .heading-secondary {
+    @apply text-xl md:text-2xl font-semibold text-gray-800;
+  }
+  
+  .text-muted {
+    @apply text-gray-600;
+  }
+  
+  .text-small {
+    @apply text-sm text-gray-500;
   }
 }

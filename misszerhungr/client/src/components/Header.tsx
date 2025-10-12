@@ -3,71 +3,84 @@ import { motion } from 'framer-motion';
 
 const Header: React.FC = () => {
   return (
-    <motion.header
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-      className="bg-white shadow-lg sticky top-0 z-50 border-b border-neutral-200"
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white bg-opacity-95 backdrop-blur-sm border-b border-neutral-200">
       <div className="container-max">
-        <div className="flex items-center justify-between py-6 px-4 sm:px-6 lg:px-8">
-          {/* Logo Placeholder */}
+        <div className="flex justify-between items-center h-16 px-4 sm:px-6 lg:px-8">
+          {/* Logo */}
           <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-4"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center"
           >
-            <div className="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center card-shadow">
-              <span className="text-white font-bold text-lg">TFA</span>
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-neutral-800">The Table for All</h1>
-              <p className="text-sm text-neutral-600 font-medium">Nonprofit Organization</p>
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center card-shadow">
+                <span className="text-white font-bold text-sm">TFA</span>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-neutral-800">The Table for All</h1>
+                <p className="text-xs text-neutral-600 font-medium">Nonprofit Organization</p>
+              </div>
             </div>
           </motion.div>
 
-          {/* Navigation Menu */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <motion.a
-              href="#mission"
-              whileHover={{ scale: 1.05 }}
-              className="text-neutral-700 hover:text-primary-600 font-semibold transition-colors duration-200"
+          {/* Navigation */}
+          <motion.nav
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="hidden md:flex items-center space-x-8"
+          >
+            <button 
+              onClick={() => {
+                // This will be handled by the parent component
+                const event = new CustomEvent('navigateToMap');
+                window.dispatchEvent(event);
+              }}
+              className="text-neutral-700 hover:text-primary-600 transition-colors font-medium cursor-pointer"
             >
-              Mission
-            </motion.a>
-            <motion.a
-              href="#achievements"
-              whileHover={{ scale: 1.05 }}
-              className="text-neutral-700 hover:text-primary-600 font-semibold transition-colors duration-200"
-            >
+              Hunger in Tuscaloosa
+            </button>
+            <a href="#achievements" className="text-neutral-700 hover:text-primary-600 transition-colors font-medium">
               Impact
-            </motion.a>
-            <motion.a
-              href="#gallery"
-              whileHover={{ scale: 1.05 }}
-              className="text-neutral-700 hover:text-primary-600 font-semibold transition-colors duration-200"
+            </a>
+                <button
+                  onClick={() => {
+                    const event = new CustomEvent('navigateToVolunteer');
+                    window.dispatchEvent(event);
+                  }}
+                  className="text-neutral-700 hover:text-primary-600 transition-colors font-medium cursor-pointer"
+                >
+                  Volunteer
+                </button>
+            <button 
+              onClick={() => {
+                const event = new CustomEvent('navigateToAuth');
+                window.dispatchEvent(event);
+              }}
+              className="text-neutral-700 hover:text-primary-600 transition-colors font-medium cursor-pointer"
             >
-              Gallery
-            </motion.a>
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              className="text-neutral-700 hover:text-primary-600 font-semibold transition-colors duration-200"
-            >
-              Contact
-            </motion.a>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg"
-            >
-              Donate
-            </motion.button>
-          </nav>
+              Sign Up / Login
+            </button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    const event = new CustomEvent('navigateToDonation');
+                    window.dispatchEvent(event);
+                  }}
+                  className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-bold py-3 px-6 rounded-xl hover:shadow-lg transition-all duration-300 cursor-pointer"
+                >
+                  Donation
+                </motion.button>
+          </motion.nav>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu button */}
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            className="md:hidden p-3 rounded-lg bg-primary-50 text-primary-600 hover:bg-primary-100 transition-colors duration-200"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="md:hidden p-2 rounded-lg text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -75,7 +88,7 @@ const Header: React.FC = () => {
           </motion.button>
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 };
 

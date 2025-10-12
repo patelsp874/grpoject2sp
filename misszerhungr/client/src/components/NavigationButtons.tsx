@@ -8,6 +8,12 @@ interface NavigationButtonsProps {
 const NavigationButtons: React.FC<NavigationButtonsProps> = ({ onButtonClick }) => {
   const buttons = [
     {
+      title: "Tuscaloosa Map Insights",
+      description: "Explore interactive food insecurity data and mapping",
+      icon: "🗺️",
+      color: "from-blue-500 to-blue-600"
+    },
+    {
       title: "About Us",
       description: "Learn more about our organization, team, and values",
       icon: "👥",
@@ -78,7 +84,7 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({ onButtonClick }) 
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => onButtonClick(`${button.title} - ${button.description}`)}
+                onClick={() => onButtonClick(button.title)}
                 className={`bg-gradient-to-br ${button.color} rounded-2xl p-8 text-white shadow-lg hover:shadow-xl transition-all duration-300 group`}
               >
                 <div className="text-center">
